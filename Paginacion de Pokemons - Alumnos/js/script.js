@@ -2,7 +2,7 @@ const pokemonContainer = document.querySelector(".pokemon-container")
 const fragmentPokemon = document.createDocumentFragment()
 const navPk = document.querySelector(".nav-pokemon")
 
-//Nums
+//Nums para a paxinacion
 var numIni = 1
 var numFin = 25 
 
@@ -22,7 +22,7 @@ function ajax(options){
     .catch(err => error(err))
 }
 
-
+//Peticion por id do pokemon
 function fetchPokemon(id){
     ajax({
         url: `https://pokeapi.co/api/v2/pokemon/${id}/`,
@@ -31,6 +31,8 @@ function fetchPokemon(id){
         error: e => {console.log("ERROR" + e)}
     })
 }
+
+//Funcion para crear unha carta pokemon
 
 function mostrarPokemon(pokemon){
     const main = document.querySelector(".pokemon-container")
@@ -57,13 +59,14 @@ function mostrarPokemon(pokemon){
     main.appendChild(cardPokemon)
 }
 
+//Función para mostrar 25 pokemones
 function mostrarPokemones(numIni = 0, numFin = 25){
     for(let i = numIni; i < numFin; i++){
         fetchPokemon(i)
     }
 }
 
-
+//Función para crear botóns
 function buttons(){
     let buttonLeft = document.createElement("button")
     buttonLeft.textContent = "IZQ"
@@ -73,13 +76,13 @@ function buttons(){
     buttonRight.setAttribute("id","der")
     navPk.appendChild(buttonLeft)
     navPk.appendChild(buttonRight)
-
-
-
-
 }
+
+//Cargamos os botones e os 25 primeiros pokemones
 document.addEventListener("DOMContentLoaded", buttons)
 document.addEventListener("DOMContentLoaded", mostrarPokemones())
+
+//Engadimos envento no nav para pasar de páxina.
 navPk.addEventListener("click", e =>{
     
     if(e.target.id == "izq"){
