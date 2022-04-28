@@ -18,7 +18,7 @@ function ajax(options){
 
     fetch(url, fetchOptions)
     .then(res => {return (res.ok) ? res.json(): Promise.reject(res)})
-    .then(response=> success(response))
+    .then(response => success(response))
     .catch(err => error(err))
 }
 
@@ -26,9 +26,8 @@ function ajax(options){
 function fetchPokemon(id){
     ajax({
         url: `https://pokeapi.co/api/v2/pokemon/${id}/`,
-        method: "GET",
         success: pokemon => {mostrarPokemon(pokemon)},
-        error: e => {console.log("ERROR" + e)}
+        error: e => {console.log("ERROR " + JSON.stringify(e))}
     })
 }
 
@@ -48,7 +47,7 @@ function mostrarPokemon(pokemon){
     cardText.classList.add("card-text")
     imgPokemon.classList.add("card-img-top")
 
-    imgPokemon.src = pokemon.sprites.front_default
+    imgPokemon.src = pokemon.sprites.front_shiny
     h5.textContent = pokemon.name
     cardText.textContent = "Experience Base: " + pokemon.base_experience
 
@@ -60,9 +59,10 @@ function mostrarPokemon(pokemon){
 }
 
 //Función para mostrar 25 pokemones
-function mostrarPokemones(numIni = 0, numFin = 25){
-    for(let i = numIni; i < numFin; i++){
+function mostrarPokemones(numIni = 1, numFin = 25){
+    for(let i = numIni; i < 26; i++){
         fetchPokemon(i)
+        
     }
 }
 
